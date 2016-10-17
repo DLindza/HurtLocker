@@ -1,7 +1,11 @@
 import org.apache.commons.io.IOUtils;
-import java.io.IOException;
+
+import java.util.ArrayList;
+
 
 public class Main {
+
+
 
     public String readRawDataToString() throws Exception{
         ClassLoader classLoader = getClass().getClassLoader();
@@ -9,9 +13,19 @@ public class Main {
         return result;
     }
 
+
+
+
     public static void main(String[] args) throws Exception{
+
+
         String output = (new Main()).readRawDataToString();
-        System.out.println(output);
+        //System.out.println(output);
+
+        Filter filter = new Filter();
+
+
+
 
     }
 }
