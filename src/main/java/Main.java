@@ -1,6 +1,6 @@
 import org.apache.commons.io.IOUtils;
 
-import java.util.ArrayList;
+
 
 
 public class Main {
@@ -24,7 +24,14 @@ public class Main {
 
         Filter filter = new Filter();
 
+        filter.createFoodObject(output);
 
+        for(String[] foodObject : filter.rawFoodData) {
+            for(String string : foodObject) {
+                System.out.println(string);
+            }
+
+        }
 
 
     }
