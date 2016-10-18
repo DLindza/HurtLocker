@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,9 +10,17 @@ import java.util.regex.Pattern;
 
 
 public class Filter {
-    int exceptions = 0;
-    ArrayList<Food> foodList = new ArrayList<Food>();
+
     ArrayList<String[]> rawFoodData = new ArrayList<String[]>();
+    FoodOrganizer foodOrganizer = new FoodOrganizer();
+
+
+    public void runFilter(String output) throws NoCurrentValueException {
+        populateRawFoodDataList(output);
+        assignValueIntoFoodObject();
+        foodOrganizer.organizeFood();
+        foodOrganizer.printFood();
+    }
 
 
     public String[] splitByObjects(String output) {
@@ -40,7 +50,7 @@ public class Filter {
                 String expiration = valuePattern(currentFoodItem[3],"(?<=[:])\\w+\\W+\\w+\\W+\\w+\\b");
 
                 Food food = new Food(name, price, type, expiration);
-                foodList.add(food);
+                foodOrganizer.foodList.add(food);
         }
     }
 
@@ -53,6 +63,9 @@ public class Filter {
 
 
     }
+
+
+
 
 }
 

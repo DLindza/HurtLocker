@@ -20,18 +20,12 @@ public class Main {
 
 
         String output = (new Main()).readRawDataToString();
-        //System.out.println(output);
+
 
         Filter filter = new Filter();
 
-        filter.populateRawFoodDataList(output);
+        filter.runFilter(output);
 
-        for(String[] foodObject : filter.rawFoodData) {
-            for(String string : foodObject) {
-                System.out.println(string);
-            }
-
-        }
 
 
     }
