@@ -79,18 +79,6 @@ public class Filter {
 
 
 
-//    public void namePattern(CharSequence[] objects) {
-////        CharSequence[] poop = new CharSequence[28];
-////        for (int i = 0; i < 28; i++) {
-//            for (CharSequence object : objects) {
-//                Pattern pattern = Pattern.compile("(?i)(name)");
-//                Matcher m = pattern.matcher(object);
-//                String name = m.replaceAll("name");
-//            }
-////        }
-//////        return poop;
-//    }
-
 
 
 
