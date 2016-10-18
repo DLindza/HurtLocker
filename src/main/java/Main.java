@@ -24,7 +24,7 @@ public class Main {
 
         Filter filter = new Filter();
 
-        filter.createFoodObject(output);
+        filter.populateRawFoodDataList(output);
 
         for(String[] foodObject : filter.rawFoodData) {
             for(String string : foodObject) {

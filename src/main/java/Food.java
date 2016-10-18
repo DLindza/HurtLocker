@@ -6,10 +6,10 @@ import java.util.Date;
  */
 public class Food {
 
-    private final String name;
-    private final String price;
-    private final String type;
-    private final String expiration;
+    private String name;
+    private String price;
+    private String type;
+    private String expiration;
 
     public Food(String name, String price, String type, String expiration) {
         this.name = name;

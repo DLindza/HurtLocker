@@ -21,8 +21,8 @@ public class Filter {
         return foodItem.split("[^\\w:./]");
     }
 
-    public String valueStringPattern(String currentFoodItemProperty) {
-        Pattern pattern = Pattern.compile(":\\w+");
+    public String valuePattern(String currentFoodItemProperty, String regex) {
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(currentFoodItemProperty);
         while (matcher.find()) {
             return matcher.group();
@@ -30,41 +30,21 @@ public class Filter {
         return null;
     }
 
-    public String valuePricePattern(String currentFoodItemProperty) {
-        Pattern pattern = Pattern.compile(":\\w+\\W+\\w+");
-        Matcher matcher = pattern.matcher(currentFoodItemProperty);
-        while (matcher.find()) {
-            return matcher.group();
-        }
-        return null;
-    }
 
-    public String valueDatePattern(String currentFoodItemProperty) {
-        Pattern pattern = Pattern.compile(":\\w+\\W+\\w+\\W+\\w+");
-        Matcher matcher = pattern.matcher(currentFoodItemProperty);
-        while (matcher.find()) {
-            return matcher.group();
-        }
-        return null;
-    }
+    public void assignValueIntoFoodObject() {
 
-    public void assignValue() {
-
-        for (String[] foodObject : rawFoodData) {
-            for (int i = 0; i < 1; i++) {
-                String name = valueStringPattern(foodObject[i]);
-                String price = valuePricePattern(foodObject[i + 1]);
-                String type = valueStringPattern(foodObject[i + 2]);
-                String expiration = valueDatePattern(foodObject[i + 3]);
+        for (String[] currentFoodItem : rawFoodData) {
+                String name = valuePattern(currentFoodItem[0], "(?<=[:])\\w+");
+                String price = valuePattern(currentFoodItem[1], "(?<=[:])\\w+\\W+\\w+\\b");
+                String type = valuePattern(currentFoodItem[2],"(?<=[:])\\w+");
+                String expiration = valuePattern(currentFoodItem[3],"(?<=[:])\\w+\\W+\\w+\\W+\\w+\\b");
 
                 Food food = new Food(name, price, type, expiration);
                 foodList.add(food);
-            }
         }
     }
 
-
-    public void createFoodObject(String output) {
+    public void populateRawFoodDataList(String output) {
         String[] objects = splitByObjects(output);
         for (int i = 0; i < objects.length; i++) {
             String[] currentFoodItem = splitByPairs(objects[i]);
