@@ -7,7 +7,7 @@ public class NoCurrentValueException extends Exception {
 
         public NoCurrentValueException(String message){
             super(message);
-            counter++;
+
         }
 
 }

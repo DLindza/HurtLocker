@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
  * Created by devon on 10/17/16.
  */
 public class Food {
+    ArrayList<String> foodNames = new ArrayList<>();
 
     private static int milkCounter = 0;
     private static int cookiesCounter = 0;
@@ -18,73 +19,114 @@ public class Food {
     private String type;
     private String expiration;
 
+    public final static String milkRegex = "(?i)^m\\w+";
+    public final static String cookiesRegex = "(?i)^c\\w+";
+    public final static String breadRegex = "(?i)^b\\w+";
+    public final static String applesRegex = "(?i)^a\\w+";
+
+
+
     public Food(String name, String price, String type, String expiration) {
         this.name = name;
         this.price = price;
         this.type = type;
         this.expiration= expiration;
+        populateFoodNames();
 
     }
-
 
     public String getName() {
         return name;
     }
-
     public String getPrice() {
         return price;
     }
-
     public String getType() {
         return type;
     }
-
     public String getExpiration() {
         return expiration;
     }
 
+    public void populateFoodNames() {
+        foodNames.add("Milk");
+        foodNames.add("Cookies");
+        foodNames.add("Apples");
+        foodNames.add("Bread");
+    }
+    public void addFoodName(String name) {
+        foodNames.add(name);
+    }
 
-    public void replaceNameValuePattern() throws NoCurrentValueException {
-        if (this.name.equals(null)){
+    public void replaceNameValuePattern(String foodName, String regex) throws NoCurrentValueException {
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(foodName);
+        if (m.find()) {
+
+            //use a map Map <Regex, Integer>
+            switch (regex) {
+                case milkRegex:
+                    name = "Milk";
+                    milkCounter++;
+                    break;
+                case cookiesRegex:
+                    name = "Cookies";
+                    cookiesCounter++;
+                    break;
+                case breadRegex:
+                    name = "Bread";
+                    breadCounter++;
+                    break;
+                case applesRegex:
+                    name = "Apples";
+                    applesCounter++;
+                    break;
+
+            }
+        } else {
             throw new NoCurrentValueException("This name does not have a value");
         }
-
-        Pattern pattern = Pattern.compile("(?i)^m\\w+");
-        Matcher matcher = pattern.matcher(this.name);
-        if (matcher.find()){
-            this.name = "Milk";
-            milkCounter++;
-        }
-
-        Pattern pattern1 = Pattern.compile("(?i)^c\\w+");
-        Matcher matcher1 = pattern.matcher(this.name);
-        if (matcher.find()){
-            this.name = "Cookies";
-            cookiesCounter++;
-        }
-
-       Pattern pattern2 = Pattern.compile("(?i)^b\\w+");
-        Matcher matcher2 = pattern.matcher(this.name);
-        if (matcher.find()){
-            this.name = "Bread";
-            breadCounter++;
-        }
-      Pattern pattern3 = Pattern.compile("(?i)^a\\w+");
-        Matcher matcher3 = pattern.matcher(this.name);
-        if (matcher.find()){
-            this.name = "Apples";
-            applesCounter++;
-        }
     }
+
 
     public void checkPrice() throws NoCurrentValueException {
-        if(this.price.equals(null)) {
+        if (this.price == null) {
+            switch (name) {
+                case "Milk":
+                    milkCounter--;
+                    break;
+                case "Cookies":
+                    cookiesCounter--;
+                    break;
+                case "Bread":
+                    breadCounter--;
+                    break;
+                case "Apples":
+                    applesCounter--;
+                    break;
+            }
             throw new NoCurrentValueException("Price has not been assigned a value");
         }
+
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public static int getCounter(String name) {
+        int temp = 0;
+        switch (name) {
+            case "Milk":
+                temp = milkCounter;
+                break;
+            case "Cookies":
+                temp = cookiesCounter;
+                break;
+            case "Bread":
+                temp = breadCounter;
+                break;
+            case "Apples":
+                temp = applesCounter;
+                break;
+        }
+        return temp;
     }
 
 

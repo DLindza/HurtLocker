@@ -37,7 +37,7 @@ public class FilterTest {
     @Test
     public void assignValueIntoFoodObjectTest(){
         Filter filter = new Filter();
-        FoodOrganizer foodOrganizer = new FoodOrganizer();
+        Inventory foodOrganizer = new Inventory();
         filter.populateRawFoodDataList("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##naME:BreaD;price:1.23;type:Food;expiration:1/02/2016##");
         filter.assignValueIntoFoodObject();
         int expected = 2;
@@ -48,7 +48,7 @@ public class FilterTest {
     @Test
     public void valuePatternTest() {
         Filter filter = new Filter();
-        FoodOrganizer foodOrganizer = new FoodOrganizer();
+        Inventory foodOrganizer = new Inventory();
         filter.populateRawFoodDataList("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##naME:BreaD;price:1.23;type:Food;expiration:1/02/2016##");
         filter.assignValueIntoFoodObject();
         String expected = "Milk";
@@ -59,7 +59,7 @@ public class FilterTest {
     @Test
     public void valuePatternTest2() {
         Filter filter = new Filter();
-        FoodOrganizer foodOrganizer = new FoodOrganizer();
+        Inventory foodOrganizer = new Inventory();
         filter.populateRawFoodDataList("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##naME:BreaD;price:1.23;type:Food;expiration:1/02/2016##");
         filter.assignValueIntoFoodObject();
         String expected = "3.23";
@@ -70,7 +70,7 @@ public class FilterTest {
     @Test
     public void valuePatternTest3() {
         Filter filter = new Filter();
-        FoodOrganizer foodOrganizer = new FoodOrganizer();
+        Inventory foodOrganizer = new Inventory();
         filter.populateRawFoodDataList("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##naME:BreaD;price:1.23;type:Food;expiration:1/02/2016##");
         filter.assignValueIntoFoodObject();
         String expected = "1/25/2016";
