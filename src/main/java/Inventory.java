@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -10,7 +11,7 @@ public class Inventory {
 
     ArrayList<Food> foodList = new ArrayList<Food>();
 
-    Map<String,Map<String,Integer>> mapList = new HashMap<>();
+    Map<String,Map<String,Integer>> mapList = new LinkedHashMap<>();
 
     Map<String, Integer> mapMilkCost = new HashMap<String, Integer>();
     Map<String, Integer> mapCookiesCost = new HashMap<String, Integer>();
@@ -64,8 +65,8 @@ public class Inventory {
 
     public void populateMapList() {
         mapList.put("Milk",mapMilkCost);
-        mapList.put("Cookies", mapCookiesCost);
         mapList.put("Bread", mapBreadCost);
+        mapList.put("Cookies", mapCookiesCost);
         mapList.put("Apples", mapApplesCost);
     }
 
