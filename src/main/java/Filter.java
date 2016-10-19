@@ -16,8 +16,9 @@ public class Filter {
     public void runFilter(String output) throws NoCurrentValueException {
         populateRawFoodDataList(output);
         assignValueIntoFoodObject();
+        Food.populateFoodNames();
         inventory.inventoryPrices();
-        //inventory.printInventory();
+        inventory.printInventory();
     }
 
 

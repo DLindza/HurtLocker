@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Created by devon on 10/17/16.
  */
 public class Food {
-    ArrayList<String> foodNames = new ArrayList<>();
+    static ArrayList<String> foodNames = new ArrayList<>();
 
     private static int milkCounter = 0;
     private static int cookiesCounter = 0;
@@ -31,8 +31,6 @@ public class Food {
         this.price = price;
         this.type = type;
         this.expiration= expiration;
-        populateFoodNames();
-
     }
 
     public String getName() {
@@ -48,7 +46,7 @@ public class Food {
         return expiration;
     }
 
-    public void populateFoodNames() {
+    public static void populateFoodNames() {
         foodNames.add("Milk");
         foodNames.add("Cookies");
         foodNames.add("Apples");
@@ -59,6 +57,10 @@ public class Food {
     }
 
     public void replaceNameValuePattern(String foodName, String regex) throws NoCurrentValueException {
+        if (foodName == null) {
+            throw new NoCurrentValueException("This name does not have a value");
+        }
+
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(foodName);
         if (m.find()) {
@@ -81,10 +83,7 @@ public class Food {
                     name = "Apples";
                     applesCounter++;
                     break;
-
             }
-        } else {
-            throw new NoCurrentValueException("This name does not have a value");
         }
     }
 

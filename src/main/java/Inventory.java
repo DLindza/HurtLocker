@@ -10,9 +10,7 @@ public class Inventory {
 
     ArrayList<Food> foodList = new ArrayList<Food>();
 
-
-
-    ArrayList<Map<String,Integer>> maps = new ArrayList<>();
+    Map<String,Map<String,Integer>> mapList = new HashMap<>();
 
     Map<String, Integer> mapMilkCost = new HashMap<String, Integer>();
     Map<String, Integer> mapCookiesCost = new HashMap<String, Integer>();
@@ -20,25 +18,28 @@ public class Inventory {
     Map<String, Integer> mapApplesCost = new HashMap<String, Integer>();
 
     public void populateMap(Food food, Map<String,Integer> map) {
-        if (map.containsKey(food.getPrice())) {
-            map.put(food.getPrice(), map.get(food.getPrice()) + 1);
+        String price = food.getPrice();
+
+        if (map.containsKey(price)) {
+            map.put(price, map.get(price) + 1);
         } else {
-            map.put(food.getPrice(),1);
+            map.put(price,1);
         }
     }
 
+    public void fixUpFood(Food food) throws NoCurrentValueException {
+        food.replaceNameValuePattern(food.getName(), Food.milkRegex);
+        food.replaceNameValuePattern(food.getName(), Food.cookiesRegex);
+        food.replaceNameValuePattern(food.getName(), Food.breadRegex);
+        food.replaceNameValuePattern(food.getName(), Food.applesRegex);
+        food.checkPrice();
+    }
 
-
-    public void inventoryPrices() throws NoCurrentValueException {
+    public void inventoryPrices()  {
         for (Food food : foodList) {
             try {
-                food.replaceNameValuePattern(food.getName(), Food.milkRegex);
-                food.replaceNameValuePattern(food.getName(), Food.cookiesRegex);
-                food.replaceNameValuePattern(food.getName(), Food.breadRegex);
-                food.replaceNameValuePattern(food.getName(), Food.applesRegex);
-                food.checkPrice();
-
-                if (!food.getPrice().equals(null)) {
+                fixUpFood(food);
+                if (food.getPrice() != null) {
 
                     switch (food.getName()) {
                         case "Milk":
@@ -62,17 +63,13 @@ public class Inventory {
         }
     }
 
-
-
     public void populateMaps() {
-        maps.add(mapMilkCost);
-        maps.add(mapCookiesCost);
-        maps.add(mapBreadCost);
-        maps.add(mapApplesCost);
+        mapList.put("Milk",mapMilkCost);
+        mapList.put("Cookies", mapCookiesCost);
+        mapList.put("Bread", mapBreadCost);
+        mapList.put("Apples", mapApplesCost);
     }
 
-
-    public void addMap (Map<String,Integer> map) {maps.add(map); }
 
     public String createDoubleLineFormat() {
         StringBuilder line = new StringBuilder("=============");
@@ -92,9 +89,9 @@ public class Inventory {
 
 
     public String createNameInventoryFormat(String name) {
-        StringBuilder firstline = new StringBuilder("name:     ");
+        StringBuilder firstline = new StringBuilder("name:   ");
         firstline.append(name);
-        firstline.append("          ");
+        firstline.append("           ");
         firstline.append("seen:  ");
         firstline.append(Food.getCounter(name));
         firstline.append("  times\n");
@@ -105,9 +102,9 @@ public class Inventory {
     public String createPriceInventoryFormat(Map<String, Integer> map) {
        StringBuilder priceGroup = new StringBuilder();
         for (String price : map.keySet()) {
-            StringBuilder priceLine = new StringBuilder("price:     ");
+            StringBuilder priceLine = new StringBuilder("price:   ");
             priceLine.append(price);
-            priceLine.append("          ");
+            priceLine.append("           ");
             priceLine.append("seen:  ");
             priceLine.append(map.get(price));
             priceLine.append("  times\n");
@@ -120,7 +117,7 @@ public class Inventory {
 
     public String printErrors() {
         StringBuilder errors = new StringBuilder("Errors:    ");
-        errors.append("          ");
+        errors.append("             ");
         errors.append("seen:  ");
         errors.append(NoCurrentValueException.counter);
         errors.append("  times");
@@ -128,16 +125,14 @@ public class Inventory {
 
     }
 
-//    //print everything
-//    public void printInventory(){
-//       // populateFoodNames();
-//        populateMaps();
-//      //  for (String name : foodNames) {
-//            System.out.println(createNameInventoryFormat(name));
-//            for (Map map : maps ) {
-//                System.out.println(createPriceInventoryFormat(map));
-//            }
-//        }
-//        System.out.println(printErrors());
-//    }
+    //print everything
+    public void printInventory(){
+        populateMaps();
+        for (String name : mapList.keySet()) {
+            System.out.println(createNameInventoryFormat(name));
+            System.out.println(createPriceInventoryFormat(mapList.get(name)));
+            }
+        System.out.println(printErrors());
+        }
 }
+
