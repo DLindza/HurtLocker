@@ -19,7 +19,6 @@ public class Inventory {
 
     public void populateMap(Food food, Map<String,Integer> map) {
         String price = food.getPrice();
-
         if (map.containsKey(price)) {
             map.put(price, map.get(price) + 1);
         } else {
@@ -63,13 +62,12 @@ public class Inventory {
         }
     }
 
-    public void populateMaps() {
+    public void populateMapList() {
         mapList.put("Milk",mapMilkCost);
         mapList.put("Cookies", mapCookiesCost);
         mapList.put("Bread", mapBreadCost);
         mapList.put("Apples", mapApplesCost);
     }
-
 
     public String createDoubleLineFormat() {
         StringBuilder line = new StringBuilder("=============");
@@ -86,7 +84,6 @@ public class Inventory {
         return line.toString();
 
     }
-
 
     public String createNameInventoryFormat(String name) {
         StringBuilder firstline = new StringBuilder("name:   ");
@@ -127,7 +124,8 @@ public class Inventory {
 
     //print everything
     public void printInventory(){
-        populateMaps();
+        populateMapList();
+
         for (String name : mapList.keySet()) {
             System.out.println(createNameInventoryFormat(name));
             System.out.println(createPriceInventoryFormat(mapList.get(name)));

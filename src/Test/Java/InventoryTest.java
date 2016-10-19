@@ -24,14 +24,7 @@ public class InventoryTest {
 
     }
 
-    @Test
-    public void createNameInventoryFormatTest() {}
 
-    @Test
-    public void createPriceInventoryFormatTest() {}
-
-    @Test
-    public void printErrors() { }
 }
 
 

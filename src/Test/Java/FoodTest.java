@@ -6,14 +6,6 @@ import org.junit.Test;
  */
 public class FoodTest {
 
-@Test
-public void populateFoodNames() {
-    Food food = new Food("mIlK", "3.23", "Food", "1/25/2016");
-    int expected = 4;
-    int actual = food.foodNames.size();
-    Assert.assertEquals(expected,actual);
-
-}
 
 @Test
 public void replaceNameValuePatternTest_Milk() {
